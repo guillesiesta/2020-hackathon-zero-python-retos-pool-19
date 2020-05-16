@@ -4,9 +4,9 @@ import time
 import random
 from pygame.locals import *
 
-pygame.init()
-play_surface = pygame.display.set_mode((500, 500))
-fps = pygame.time.Clock()
+#pygame.init()
+#play_surface = pygame.display.set_mode((500, 500))
+#fps = pygame.time.Clock()
 
 
 class Snake():
@@ -102,9 +102,9 @@ class Game():
 def main():
 	# Descomentar para lanzar el juego en local
 	# Comentar para validar con el oráculo
-	pygame.init()
-	play_surface = pygame.display.set_mode((500, 500))
-	fps = pygame.time.Clock()
+	#pygame.init()
+	#play_surface = pygame.display.set_mode((500, 500))
+	#fps = pygame.time.Clock()
 
 	snake = Snake()
 	game = Game()
@@ -142,5 +142,5 @@ def main():
 # Comienza la aventura!!!!
 # Descomentar para lanzar el juego en local
 # Comentar para validar con el oráculo
-main()
-pygame.quit()
+#main()
+#pygame.quit()
