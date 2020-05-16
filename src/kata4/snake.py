@@ -4,9 +4,9 @@ import time
 import random
 from pygame.locals import *
 
-pygame.init()
-play_surface = pygame.display.set_mode((500, 500))
-fps = pygame.time.Clock()
+#pygame.init()
+#play_surface = pygame.display.set_mode((500, 500))
+#fps = pygame.time.Clock()
 
 
 class Snake():
