@@ -4,9 +4,9 @@ import time
 import random
 from pygame.locals import *
 
-#pygame.init()
-#play_surface = pygame.display.set_mode((500, 500))
-#fps = pygame.time.Clock()
+pygame.init()
+play_surface = pygame.display.set_mode((500, 500))
+fps = pygame.time.Clock()
 
 
 class Snake():
@@ -19,16 +19,16 @@ class Snake():
 	# Manejo del pressed [KEYDOWN] de las teclas [K_RIGHT - K_LEFT - K_UP -K_DOWN ]
 	def controller(self, event, pygame):
 		if event.type == KEYDOWN:
-			if event.key == pygame.K_LEFT:
+			if event.key == pygame.K_LEFT and self.change!="RIGHT":
 				self.position[0] = self.position[0] - 10
 				self.change = "LEFT"
-			elif event.key == pygame.K_RIGHT:
+			elif event.key == pygame.K_RIGHT and self.change!="LEFT":
 				self.position[0] = self.position[0] + 10
 				self.change = "RIGHT"
-			elif event.key == pygame.K_UP:
+			elif event.key == pygame.K_UP and self.change!="DOWN":
 				self.position[1] = self.position[1]- 10
 				self.change = "UP"
-			elif event.key == pygame.K_DOWN:
+			elif event.key == pygame.K_DOWN and self.change!="UP":
 				self.position[1] = self.position[1] + 10
 				self.change = "DOWN"
 			
@@ -102,9 +102,9 @@ class Game():
 def main():
 	# Descomentar para lanzar el juego en local
 	# Comentar para validar con el oráculo
-	#pygame.init()
-	#play_surface = pygame.display.set_mode((500, 500))
-	#fps = pygame.time.Clock()
+	pygame.init()
+	play_surface = pygame.display.set_mode((500, 500))
+	fps = pygame.time.Clock()
 
 	snake = Snake()
 	game = Game()
@@ -124,6 +124,7 @@ def main():
 		'''print(snake.body)
 		print("------")
 		print(game.food_pos)'''
+		print(game.score)
 		# Dibujar Snake
 		play_surface.fill((0,0,0))
 		for pos in snake.body:
@@ -141,5 +142,5 @@ def main():
 # Comienza la aventura!!!!
 # Descomentar para lanzar el juego en local
 # Comentar para validar con el oráculo
-#main()
-#pygame.quit()
+main()
+pygame.quit()
