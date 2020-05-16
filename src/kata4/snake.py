@@ -4,9 +4,9 @@ import time
 import random
 from pygame.locals import *
 
-#pygame.init()
-#play_surface = pygame.display.set_mode((500, 500))
-#fps = pygame.time.Clock()
+pygame.init()
+play_surface = pygame.display.set_mode((500, 500))
+fps = pygame.time.Clock()
 
 
 class Snake():
@@ -18,7 +18,7 @@ class Snake():
 
 	# Manejo del pressed [KEYDOWN] de las teclas [K_RIGHT - K_LEFT - K_UP -K_DOWN ]
 	def controller(self, event, pygame):
-		if event.type == KEYDOWN:
+		'''if event.type == KEYDOWN:
 			if event.key == pygame.K_LEFT and self.change!="RIGHT":
 				self.position[0] = self.position[0] - 10
 				self.change = "LEFT"
@@ -30,6 +30,15 @@ class Snake():
 				self.change = "UP"
 			elif event.key == pygame.K_DOWN and self.change!="UP":
 				self.position[1] = self.position[1] + 10
+				self.change = "DOWN"'''
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_RIGHT:
+				self.change = "RIGHT"
+			if event.key == pygame.K_LEFT:
+				self.change = "LEFT"
+			if event.key == pygame.K_UP:
+				self.change = "UP"
+			if event.key == pygame.K_DOWN:
 				self.change = "DOWN"
 			
 			#print("click ---> "+self.change)
@@ -40,7 +49,7 @@ class Snake():
     # Horizontal    -> Movimientos [UP - DOWN]
     # Incremento del movimiento
 	def changeDirection(self):
-		if self.change == "RIGHT":			
+		'''if self.change == "RIGHT":			
 			self.position[0]= self.body[0][0] + 10
 			self.body.insert(0, list(self.position))
 		if self.change == "LEFT":			
@@ -53,6 +62,28 @@ class Snake():
 			self.position[1]= self.body[0][1] + 10
 			self.body.insert(0, list(self.position))
 		#print(self.change)
+
+		if(len(self.body)>1):
+			self.last = self.body.pop()'''
+
+		if self.change == "RIGHT" and self.direction != "LEFT":
+			self.direction = "RIGHT"
+		if self.change == "LEFT" and self.direction != "RIGHT":
+			self.direction = "LEFT"
+		if self.change == "UP" and self.direction != "DOWN":
+			self.direction = "UP"
+		if self.change == "DOWN" and self.direction != "UP":
+			self.direction = "DOWN"        
+		if self.direction == "RIGHT":
+			self.position[0] += 10
+		if self.direction == "LEFT":
+			self.position[0] -= 10
+		if self.direction == "UP":
+			self.position[1] -= 10
+		if self.direction == "DOWN":
+			self.position[1] += 10        
+		
+		self.body.insert(0, list(self.position))
 
 		if(len(self.body)>1):
 			self.last = self.body.pop()
@@ -102,9 +133,9 @@ class Game():
 def main():
 	# Descomentar para lanzar el juego en local
 	# Comentar para validar con el oráculo
-	#pygame.init()
-	#play_surface = pygame.display.set_mode((500, 500))
-	#fps = pygame.time.Clock()
+	pygame.init()
+	play_surface = pygame.display.set_mode((500, 500))
+	fps = pygame.time.Clock()
 
 	snake = Snake()
 	game = Game()
@@ -142,5 +173,5 @@ def main():
 # Comienza la aventura!!!!
 # Descomentar para lanzar el juego en local
 # Comentar para validar con el oráculo
-#main()
-#pygame.quit()
+main()
+pygame.quit()
