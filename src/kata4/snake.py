@@ -11,7 +11,7 @@ fps = pygame.time.Clock()
 
 class Snake():
 	position = [100, 50]
-	body = [[100, 50], [90, 50], [80, 50]]
+	body = [[100, 50],[90,50], [80,50]]
 	direction = "RIGHT"
 	change = direction
 	last = 0
@@ -21,16 +21,18 @@ class Snake():
 		if event.type == KEYDOWN:
 			if event.key == pygame.K_LEFT:
 				self.position[0] = self.position[0] - 10
-				self.direction = "LEFT"
+				self.change = "LEFT"
 			elif event.key == pygame.K_RIGHT:
 				self.position[0] = self.position[0] + 10
-				self.direction = "RIGHT"
+				self.change = "RIGHT"
 			elif event.key == pygame.K_UP:
 				self.position[1] = self.position[1]- 10
-				self.direction = "UP"
+				self.change = "UP"
 			elif event.key == pygame.K_DOWN:
 				self.position[1] = self.position[1] + 10
-				self.direction = "DOWN"
+				self.change = "DOWN"
+			
+			#print("click ---> "+self.change)
 
 	# Controla el cambio de  las direcciones
     # Orientaciones
@@ -38,24 +40,24 @@ class Snake():
     # Horizontal    -> Movimientos [UP - DOWN]
     # Incremento del movimiento
 	def changeDirection(self):
-		if self.direction == "RIGHT":
-			self.last = self.body.pop()
+		if self.change == "RIGHT":			
 			self.position[0]= self.body[0][0] + 10
 			self.body.insert(0, list(self.position))
-		if self.direction == "LEFT":
-			self.last = self.body.pop()
+		if self.change == "LEFT":			
 			self.position[0]= self.body[0][0] - 10
 			self.body.insert(0, list(self.position))
-		if self.direction == "UP":
-			self.last = self.body.pop()
+		if self.change == "UP":
 			self.position[1]= self.body[0][1] - 10
 			self.body.insert(0, list(self.position))
-		if self.direction == "DOWN":
-			self.last = self.body.pop()
+		if self.change == "DOWN":
 			self.position[1]= self.body[0][1] + 10
 			self.body.insert(0, list(self.position))
-		
-		#print(self.body)
+		#print(self.change)
+
+		if(len(self.body)>1):
+			self.last = self.body.pop()
+					
+		#print(self.change)
 
 class Game():
 	run = True
@@ -80,7 +82,8 @@ class Game():
 	def eat(self, snake):
 		if self.food_pos == snake.position:
 			snake.body.append(list(snake.last))
-			self.food_spawn()		
+			self.food_spawn()
+			self.score = self.score +1	
 
 	# Mensajes de salida cuando el snake muere
 	# Posición snake[0] >= 500 ó snake[0] <= 0				  -> Muere
@@ -93,17 +96,20 @@ class Game():
 			self.run = False
 		if snake.body[0] in snake.body[1:]:
 			self.run = False
+		return True
 	
 # Entry Point
 def main():
 	# Descomentar para lanzar el juego en local
 	# Comentar para validar con el oráculo
-	pygame.init()
-	play_surface = pygame.display.set_mode((500, 500))
-	fps = pygame.time.Clock()
+	#pygame.init()
+	#play_surface = pygame.display.set_mode((500, 500))
+	#fps = pygame.time.Clock()
 
 	snake = Snake()
 	game = Game()
+
+	print(game.dead(snake))
 
 	# Bucle principal
 	# run the game loop
@@ -115,9 +121,9 @@ def main():
 		snake.changeDirection()
 
 		game.eat(snake)
-		print(snake.body)
+		'''print(snake.body)
 		print("------")
-		print(game.food_pos)
+		print(game.food_pos)'''
 		# Dibujar Snake
 		play_surface.fill((0,0,0))
 		for pos in snake.body:
@@ -135,5 +141,5 @@ def main():
 # Comienza la aventura!!!!
 # Descomentar para lanzar el juego en local
 # Comentar para validar con el oráculo
-main()
-pygame.quit()
+#main()
+#pygame.quit()
